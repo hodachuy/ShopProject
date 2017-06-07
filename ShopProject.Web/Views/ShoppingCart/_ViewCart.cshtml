@@ -1,0 +1,65 @@
+﻿<div id="cartContent">
+    <div class="panel-header">
+        <div class="header-title">
+            <h3 style="color:#F97E76;font-family:Arial">Giỏ Hàng</h3>
+        </div>
+    </div>
+    <div id="cartBody">
+        <div id="cartInfo">
+            <div class="ajax__inner" id="cartInfoBody">
+                              
+            </div>
+            <div style="margin-top:5px;margin-bottom:5px">
+                <label for="CartSpecialInstructions">Hướng dẫn bán hàng</label>
+                <textarea name="note" style="width:100%"></textarea>
+            </div>
+
+            <div class="ajax__footer">
+                <div class="grid--full" style="margin-top:5px;margin-bottom:5px">
+                    <div class="grid__item two-thirds">
+                        <p style="color:#F97E76;font-weight:bold;font-family:Arial">Tổng</p>
+                    </div>
+                    <div class="grid__item one-third text-right">
+                        <p style="font-size:16px;font-weight:bold"><span id="lblTotalOrder"></span> ₫</p>
+                    </div>
+                </div>
+                <p class="text-center">Giao hàng & tính thuế khi bán hàng</p>
+                <button class="btn--secondary btn--full" name="checkout" id="btnCheckout">
+                    Thanh toán
+                </button>
+            </div>          
+        </div>
+    </div>
+</div>
+
+<script id="tplCart" type="x-tmpl-mustache">
+    <div class="ajaxcart__product">
+        <div class="ajaxcart__row">
+            <div class="grid">
+                <div class="grid__item one-quarter">
+                    <div style="display:none">{{ProductId}}</div>
+                    <a href="/{{ProductAlias}}.p-{{ProductId}}.html"><img src="/fileman/Uploads/Product/{{Image}}" class="image-cart" width="77" height="100" style="border:1px solid #ddd; transition: box-shadow .3s"/></a>
+                    <button class="btn btn-default btnDeleteItem" data-id="{{ProductId}}" style="width:77px"><span style="color:#d2d6de">x</span></button>
+                </div>
+                <div class="grid__item three-quarters" style="padding-left:30px">
+                    <p>
+                        <a href="/{{ProductAlias}}.p-{{ProductId}}.html" style="color:#1DBAA5;text-decoration:underline">{{ProductName}}</a>
+                        <span class="ajaxcart__product-meta">BigShop</span>
+                    </p>
+
+                    <div class="grid--full display-table">
+                        <div class="grid__item display-table-cell one-half">
+                            <div class="ajaxcart__qty">
+                                <input type="number" min="0" data-id="{{ProductId}}" data-price="{{Price}}" value="{{Quantity}}" data-quantity="{{QuantityDb}}" class="input txtQuantity" id="dfQuantity_{{ProductId}}" />
+                            </div>
+                        </div>
+                        <div class="grid__item display-table-cell one-half text-right" style="padding-right:10px">
+                            <div style="display:none">{{PriceFormat}}</div>
+                            <span id="amount_{{ProductId}}">{{Amount}}</span>₫
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

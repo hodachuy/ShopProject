@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{282C1BC2-9301-4C15-B385-A643529D3ABD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ShopProject.Data</RootNamespace>
+    <AssemblyName>ShopProject.Data</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Infrastructure\DbFactory.cs" />
+    <Compile Include="Infrastructure\Disposable.cs" />
+    <Compile Include="Infrastructure\IDbFactory.cs" />
+    <Compile Include="Infrastructure\IRepository.cs" />
+    <Compile Include="Infrastructure\IUnitOfWork.cs" />
+    <Compile Include="Infrastructure\RepositoryBase.cs" />
+    <Compile Include="Infrastructure\UnitOfWork.cs" />
+    <Compile Include="Migrations\201704101219515_InitialDb.cs" />
+    <Compile Include="Migrations\201704101219515_InitialDb.Designer.cs">
+      <DependentUpon>201704101219515_InitialDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704111656246_Intergrate-ApsNetIdentity.cs" />
+    <Compile Include="Migrations\201704111656246_Intergrate-ApsNetIdentity.Designer.cs">
+      <DependentUpon>201704111656246_Intergrate-ApsNetIdentity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705011908410_AddGroupUser.cs" />
+    <Compile Include="Migrations\201705011908410_AddGroupUser.Designer.cs">
+      <DependentUpon>201705011908410_AddGroupUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705012043297_change.cs" />
+    <Compile Include="Migrations\201705012043297_change.Designer.cs">
+      <DependentUpon>201705012043297_change.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705012055452_refresh.cs" />
+    <Compile Include="Migrations\201705012055452_refresh.Designer.cs">
+      <DependentUpon>201705012055452_refresh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705012100240_changeAgain.cs" />
+    <Compile Include="Migrations\201705012100240_changeAgain.Designer.cs">
+      <DependentUpon>201705012100240_changeAgain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705101307526_AddCustomerID.cs" />
+    <Compile Include="Migrations\201705101307526_AddCustomerID.Designer.cs">
+      <DependentUpon>201705101307526_AddCustomerID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705120946445_AddGroupUserAgain.cs" />
+    <Compile Include="Migrations\201705120946445_AddGroupUserAgain.Designer.cs">
+      <DependentUpon>201705120946445_AddGroupUserAgain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705142252558_RevenuesStatisticSP.cs" />
+    <Compile Include="Migrations\201705142252558_RevenuesStatisticSP.Designer.cs">
+      <DependentUpon>201705142252558_RevenuesStatisticSP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705180910193_Remove.cs" />
+    <Compile Include="Migrations\201705180910193_Remove.Designer.cs">
+      <DependentUpon>201705180910193_Remove.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705180935357_FileImage.cs" />
+    <Compile Include="Migrations\201705180935357_FileImage.Designer.cs">
+      <DependentUpon>201705180935357_FileImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705210648408_ChangeName.cs" />
+    <Compile Include="Migrations\201705210648408_ChangeName.Designer.cs">
+      <DependentUpon>201705210648408_ChangeName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705260258543_Remove_Required_Message_Order.cs" />
+    <Compile Include="Migrations\201705260258543_Remove_Required_Message_Order.Designer.cs">
+      <DependentUpon>201705260258543_Remove_Required_Message_Order.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705270850203_UpdatePropertyProduct.cs" />
+    <Compile Include="Migrations\201705270850203_UpdatePropertyProduct.Designer.cs">
+      <DependentUpon>201705270850203_UpdatePropertyProduct.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705291359187_AddTableProductGroup.cs" />
+    <Compile Include="Migrations\201705291359187_AddTableProductGroup.Designer.cs">
+      <DependentUpon>201705291359187_AddTableProductGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705291501417_Addstatus.cs" />
+    <Compile Include="Migrations\201705291501417_Addstatus.Designer.cs">
+      <DependentUpon>201705291501417_Addstatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705301419459_ChangeKeyGroup.cs" />
+    <Compile Include="Migrations\201705301419459_ChangeKeyGroup.Designer.cs">
+      <DependentUpon>201705301419459_ChangeKeyGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705301435107_addIdentity.cs" />
+    <Compile Include="Migrations\201705301435107_addIdentity.Designer.cs">
+      <DependentUpon>201705301435107_addIdentity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201705311126293_AddAliasToGroup.cs" />
+    <Compile Include="Migrations\201705311126293_AddAliasToGroup.Designer.cs">
+      <DependentUpon>201705311126293_AddAliasToGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201706020959067_addItemGroup.cs" />
+    <Compile Include="Migrations\201706020959067_addItemGroup.Designer.cs">
+      <DependentUpon>201706020959067_addItemGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ApplicationGroupRepository.cs" />
+    <Compile Include="Repositories\ApplicationRoleGroupRepository.cs" />
+    <Compile Include="Repositories\ApplicationRoleRepository.cs" />
+    <Compile Include="Repositories\ApplicationUserGroupRepository.cs" />
+    <Compile Include="Repositories\ContactDetailRepository.cs" />
+    <Compile Include="Repositories\ErrorRepository.cs" />
+    <Compile Include="Repositories\FeedbackRepository.cs" />
+    <Compile Include="Repositories\FileImageRepository.cs" />
+    <Compile Include="Repositories\FooterRepository.cs" />
+    <Compile Include="Repositories\GroupRepository.cs" />
+    <Compile Include="Repositories\MenuGroupRepository.cs" />
+    <Compile Include="Repositories\MenuRepository.cs" />
+    <Compile Include="Repositories\OrderDetailRepository.cs" />
+    <Compile Include="Repositories\OrderRepository.cs" />
+    <Compile Include="Repositories\PageRepository.cs" />
+    <Compile Include="Repositories\PostCategoryRepository.cs" />
+    <Compile Include="Repositories\PostRepository.cs" />
+    <Compile Include="Repositories\PostTagRepository.cs" />
+    <Compile Include="Repositories\ProductCategoryRepository.cs" />
+    <Compile Include="Repositories\ProductGroupRepository.cs" />
+    <Compile Include="Repositories\ProductRepository.cs" />
+    <Compile Include="Repositories\ProductTagRepository.cs" />
+    <Compile Include="Repositories\SlideRepository.cs" />
+    <Compile Include="Repositories\SupportOnlineRepository.cs" />
+    <Compile Include="Repositories\SystemConfigRepository.cs" />
+    <Compile Include="Repositories\TagRepository.cs" />
+    <Compile Include="Repositories\VisitorStatisticRepository.cs" />
+    <Compile Include="ShopDbContext.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShopProject.Common\ShopProject.Common.csproj">
+      <Project>{6e3a4119-ee27-49aa-bc81-53cd0444a297}</Project>
+      <Name>ShopProject.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShopProject.Model\ShopProject.Model.csproj">
+      <Project>{8872CF25-7080-4616-A95A-C9060B802215}</Project>
+      <Name>ShopProject.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201704101219515_InitialDb.resx">
+      <DependentUpon>201704101219515_InitialDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704111656246_Intergrate-ApsNetIdentity.resx">
+      <DependentUpon>201704111656246_Intergrate-ApsNetIdentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705011908410_AddGroupUser.resx">
+      <DependentUpon>201705011908410_AddGroupUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705012043297_change.resx">
+      <DependentUpon>201705012043297_change.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705012055452_refresh.resx">
+      <DependentUpon>201705012055452_refresh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705012100240_changeAgain.resx">
+      <DependentUpon>201705012100240_changeAgain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705101307526_AddCustomerID.resx">
+      <DependentUpon>201705101307526_AddCustomerID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705120946445_AddGroupUserAgain.resx">
+      <DependentUpon>201705120946445_AddGroupUserAgain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705142252558_RevenuesStatisticSP.resx">
+      <DependentUpon>201705142252558_RevenuesStatisticSP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705180910193_Remove.resx">
+      <DependentUpon>201705180910193_Remove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705180935357_FileImage.resx">
+      <DependentUpon>201705180935357_FileImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705210648408_ChangeName.resx">
+      <DependentUpon>201705210648408_ChangeName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705260258543_Remove_Required_Message_Order.resx">
+      <DependentUpon>201705260258543_Remove_Required_Message_Order.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705270850203_UpdatePropertyProduct.resx">
+      <DependentUpon>201705270850203_UpdatePropertyProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705291359187_AddTableProductGroup.resx">
+      <DependentUpon>201705291359187_AddTableProductGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705291501417_Addstatus.resx">
+      <DependentUpon>201705291501417_Addstatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705301419459_ChangeKeyGroup.resx">
+      <DependentUpon>201705301419459_ChangeKeyGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705301435107_addIdentity.resx">
+      <DependentUpon>201705301435107_addIdentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705311126293_AddAliasToGroup.resx">
+      <DependentUpon>201705311126293_AddAliasToGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706020959067_addItemGroup.resx">
+      <DependentUpon>201706020959067_addItemGroup.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

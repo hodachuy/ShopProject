@@ -1,0 +1,157 @@
+﻿<section class="content-header">
+    <h1>
+        Đơn Hàng
+    </h1>
+    <h2 style="color:#72afd2">
+        <strong>#100</strong><strong ng-bind="order.ID"></strong>
+    </h2>
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Đơn Hàng</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="box box-primary">
+                <div class="box-body box-profile">
+                    <img class="profile-user-img img-responsive img-circle" src="../../../assets/admin/img/NoImage.jpg" alt="User profile picture">
+                    <h3 class="profile-username text-center" ng-bind="order.CustomerName"></h3>
+                    <p class="text-muted text-center">Khách Hàng</p>
+
+                    <ul class="list-group list-group-unbordered">
+                        <li class="list-group-item" style="height:100px">
+                            <b>Địa Chỉ:</b><a class="pull-right" ng-bind="order.CustomerAddress"></a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Điện Thoại:</b> <a class="pull-right" ng-bind="order.CustomerMobile"></a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Email:</b> <a class="pull-right" ng-bind="order.CustomerEmail"></a>
+                        </li>
+                        <li class="list-group-item">
+                            <b>Ngày Đặt:</b> <a class="pull-right" ng-bind="order.CreatedDate"></a>
+                        </li>
+                    </ul>
+                    <form novalidate name="frmEditOrder" role="form" ng-submit="EditOrder()">
+                        <div class="form-group">
+                            <input type="checkbox" name="fancy-checkbox-default" id="fancy-checkbox-default" autocomplete="off" ng-model="order.Status" ng-checked="order.Status" />
+                            <div class="btn-group">
+                                <label for="fancy-checkbox-default" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    <span> </span>
+                                </label>
+                                <label for="fancy-checkbox-default" class="btn btn-default active">
+                                    Xác nhận đơn hàng
+                                </label>
+                            </div>                           
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" ng-disabled="frmEditOrder.$invalid">Xác Nhận</button>
+                    </form>
+                    
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div><!-- /.col -->
+        <div class="col-md-8">
+            <div class="nav-tabs-custom">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#activity" data-toggle="tab">Chi Tiết Đơn Hàng</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="active tab-pane" id="activity">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2">
+
+                                </div>
+                                <div class="col-md-8">
+                                    <h2 style="color:#72afd2">
+                                        MÃ ĐƠN HÀNG:
+                                        <strong>#100</strong><strong ng-bind="order.ID"></strong>
+                                    </h2>
+                                    <h3><label>Chi Tiết Đơn Hàng:</label></h3>
+                                    <div class="box-body">
+                                        <div class="box-primary">
+
+                                            <div class="box-group" ng-repeat="item in orderDetail">
+                                                <div class="col-md-3">
+                                                    <img src="{{item.Product.Image}}" width="80" height="100" />
+                                                </div>
+                                                <div class="col-md-1">
+
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="row">
+                                                        <span style="color:#337ab7;font-size:small">
+                                                            {{item.Product.Name | uppercase}}
+                                                        </span>                                                     
+                                                    </div>
+                                                    <div class="row">
+                                                        <span class="pull-left">
+                                                            <b>{{item.Quantity}} x</b>
+                                                            <span>{{item.Price | currency:"":0}} ₫</span>
+                                                        </span>
+                                                        <span class="pull-right" style="margin-right:20px">
+                                                            <span style="color:red">{{item.Amount | currency:"":0}} ₫</span>
+                                                        </span>
+                                                    </div>                                                                                               
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                         
+                                        </div>
+                                        <div class="clearfix"></div>
+
+                                    </div>
+
+                                </div>
+                                <div class="col-md-2">
+
+                                </div>
+                                <div class="col-md-12">
+
+
+                                    <div class="box-default">
+                                        <h4 style="font-family:Arial"><b>Giá trị đơn hàng:</b><span class="pull-right" style="color:red">{{Total | currency:"":0}} ₫</span></h4>
+                                        <h4 style="font-family:Arial"><b>Phí vận chuyển:</b><span class="pull-right" style="color:red"> 0 ₫ </span></h4>
+                                        <h4 style="font-family:Arial"><b>Tổng cộng:</b><span class="pull-right" style="color:red">{{Total | currency:"":0}} ₫</span></h4>
+                                        <h4 style="font-family:Arial"><b>Phươn thức thanh toán:</b><span class="pull-right" ng-bind="order.PaymentMethod" style="font-size:medium"></span></h4>
+                                        <h4 style="font-family:Arial"><b>Tin Nhắn:</b><em class="pull-right">{{order.CustomerMessage || message}}</em></h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div><!-- /.tab-pane -->
+
+                </div><!-- /.tab-content -->
+            </div><!-- /.nav-tabs-custom -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+
+</section><!-- /.content -->
+<style>
+    .form-group input[type="checkbox"] {
+        display: none;
+    }
+
+        .form-group input[type="checkbox"] + .btn-group > label span {
+            width: 20px;
+        }
+
+            .form-group input[type="checkbox"] + .btn-group > label span:first-child {
+                display: none;
+            }
+
+            .form-group input[type="checkbox"] + .btn-group > label span:last-child {
+                display: inline-block;
+            }
+
+        .form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
+            display: inline-block;
+        }
+
+        .form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
+            display: none;
+        }
+</style>

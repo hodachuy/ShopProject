@@ -1,0 +1,449 @@
+﻿.image-cart:hover{
+      box-shadow: 0 0 11px rgba(33,33,33,.2); 
+}
+.btn--full {
+    width: 100%;
+}
+.btn--secondary{
+     display: inline-block;
+  padding: 10px 20px;
+  width: auto;
+  margin: 0;
+  line-height: 1.42;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  vertical-align: middle;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1px solid transparent;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border-radius: 0;
+  font-family: "Robobto", sans-serif;
+  text-transform: uppercase;
+  /*================ Set primary button colors - can override later ================*/
+  background-color: #000;
+  color:#fff;
+}
+.panel-header {
+  display: table;
+  height: 70px;
+  width: 100%;
+  margin-bottom: 7.5px;
+  border-bottom: 1px solid #f2f2f2; }
+/* Force clearfix on grids */
+.grid, .grid--rev, .grid--full,
+.grid-uniform {
+  *zoom: 1; }
+  .grid:after, .grid--rev:after, .grid--full:after,
+  .grid-uniform:after {
+    content: '';
+    display: table;
+    clear: both; }
+
+/* Manual grid__item clearfix */
+.grid__item.clear {
+  clear: both; }
+
+/*============================================================================
+	Drop relative positioning into silent classes which can't take advantage of
+	the `[class*="push--"]` and `[class*="pull--"]` selectors.
+==============================================================================*/
+/*============================================================================
+	Grid Setup
+		1. Allow the grid system to be used on lists.
+		2. Remove any margins and paddings that might affect the grid system.
+		3. Apply a negative `margin-left` to negate the columns' gutters.
+==============================================================================*/
+.grid, .grid--rev, .grid--full,
+.grid-uniform {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-left: -30px;
+  }
+
+.grid__item {
+  box-sizing: border-box;
+  float: left;
+  min-height: 1px;
+  padding-left: 5px;
+  vertical-align: top;
+  width: 100%;
+  }
+
+/*============================================================================
+	Reversed grids allow you to structure your source in the opposite
+	order to how your rendered layout will appear.
+==============================================================================*/
+.grid--rev {
+  direction: rtl;
+  text-align: left; }
+  .grid--rev > .grid__item {
+    direction: ltr;
+    text-align: left;
+    float: right; }
+
+/* Gutterless grids have all the properties of regular grids, minus any spacing. */
+.grid--full {
+  margin-left: 0; }
+  .grid--full > .grid__item {
+    padding-left: 0; }
+
+/*============================================================================
+	WIDTHS
+		- Create width classes, prefixed by the specified namespace.
+==============================================================================*/
+/*================ Clearfix helper on uniform grids ================*/
+/*================ Helper show/hide classes around our breakpoints ================*/
+/*================ Our regular, non-responsive width and helper classes ================*/
+/** Whole */
+.one-whole {
+  width: 100%; }
+
+/* Halves */
+.one-half {
+  width: 50%; }
+
+/* Thirds */
+.one-third {
+  width: 43.333%; }
+
+.two-thirds {
+  width: 56.666%; }
+
+/* Quarters */
+.one-quarter {
+  width: 25%; }
+
+.two-quarters {
+  width: 50%; }
+
+.three-quarters {
+  width: 75%; }
+
+/* Fifths */
+.one-fifth {
+  width: 20%; }
+
+.two-fifths {
+  width: 40%; }
+
+.three-fifths {
+  width: 60%; }
+
+.four-fifths {
+  width: 80%; }
+
+/* Sixths */
+.one-sixth {
+  width: 16.666%; }
+
+.two-sixths {
+  width: 33.333%; }
+
+.three-sixths {
+  width: 50%; }
+
+.four-sixths {
+  width: 66.666%; }
+
+.five-sixths {
+  width: 83.333%; }
+
+/* Eighths */
+.one-eighth {
+  width: 12.5%; }
+
+.two-eighths {
+  width: 25%; }
+
+.three-eighths {
+  width: 37.5%; }
+
+.four-eighths {
+  width: 50%; }
+
+.five-eighths {
+  width: 62.5%; }
+
+.six-eighths {
+  width: 75%; }
+
+.seven-eighths {
+  width: 87.5%; }
+
+/* Tenths */
+.one-tenth {
+  width: 10%; }
+
+.two-tenths {
+  width: 20%; }
+
+.three-tenths {
+  width: 30%; }
+
+.four-tenths {
+  width: 40%; }
+
+.five-tenths {
+  width: 50%; }
+
+.six-tenths {
+  width: 60%; }
+
+.seven-tenths {
+  width: 70%; }
+
+.eight-tenths {
+  width: 80%; }
+
+.nine-tenths {
+  width: 90%; }
+
+/* Twelfths */
+.one-twelfth {
+  width: 8.333%; }
+
+.two-twelfths {
+  width: 16.666%; }
+
+.three-twelfths {
+  width: 25%; }
+
+.four-twelfths {
+  width: 33.333%; }
+
+.five-twelfths {
+  width: 41.666%; }
+
+.six-twelfths {
+  width: 50%; }
+
+.seven-twelfths {
+  width: 58.333%; }
+
+.eight-twelfths {
+  width: 66.666%; }
+
+.nine-twelfths {
+  width: 75%; }
+
+.ten-twelfths {
+  width: 83.333%; }
+
+.eleven-twelfths {
+  width: 91.666%; }
+
+.show {
+  display: block !important; }
+
+
+.text-right {
+  text-align: right !important; }
+
+.text-center {
+  text-align: center !important; }
+
+.left {
+  float: left !important; }
+
+.right {
+  float: right !important; }
+
+/*================ Our responsive classes, if we have enabled them ================*/
+
+
+
+
+
+
+/*============================================================================
+	#Helper Classes
+==============================================================================*/
+.display-table {
+  display: table;
+  table-layout: fixed;
+  width: 100%; }
+
+.display-table-cell {
+  display: table-cell;
+  vertical-align: middle;
+  float: none; }
+/*============================================================================
+	#Typography
+==============================================================================*/
+
+h3, .h3 {
+  font-size: 1.42857em; }
+
+p {
+  margin: 0 0 7.5px 0;
+  }
+  p img {
+    margin: 0; }
+
+
+
+.btn--full {
+  width: 100%; }
+
+
+/*============================================================================
+	#Tables
+==============================================================================*/
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+table.full {
+  width: 100%;
+  margin-bottom: 1em; }
+
+.table-wrap {
+  max-width: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch; }
+
+th {
+  font-weight: bold; }
+
+th, td {
+  text-align: left;
+  padding: 7.5px;
+  border: 1px solid #d7d7d7; }
+
+img {
+  border: 0 none; }
+
+textarea {
+  min-height: 100px;
+  }
+
+
+.line-style {
+  position: relative;
+  padding: 0 20px; }
+  .line-style:before {
+    background: rgba(230, 230, 230, 0.18);
+    content: "";
+    height: 15px;
+    position: absolute;
+    right: 9px;
+    top: 2px;
+    width: 1px; }
+
+
+
+/*============================================================================
+	#Ajax Cart Styles (conditionally loaded)
+==============================================================================*/
+.ajaxcart__inner {
+  margin-bottom: 15px; }
+
+.ajaxcart__row > .grid, .ajaxcart__row > .grid--rev, .ajaxcart__row > .grid--full {
+  margin-left: -7.5px;
+  }
+  .ajaxcart__row > .grid > .grid__item, .ajaxcart__row > .grid--rev > .grid__item, .ajaxcart__row > .grid--full > .grid__item {
+    padding-left: 15.5px; }
+
+.ajaxcart__product {
+  position: relative;
+  max-height: 500px; }
+  .ajaxcart__product.is-removed {
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: all 450ms cubic-bezier(0.57, 0.06, 0.05, 0.95);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden; }
+
+.ajaxcart__row {
+  padding-bottom: 7.5px;
+  margin-bottom: 7.5px;
+  border-bottom: 1px solid #f2f2f2; }
+
+.ajaxcart__product-image {
+  display: block;
+  overflow: hidden;
+  margin-bottom: 15px;
+  }
+  .ajaxcart__product-image img {
+    display: block;
+    margin: 0 auto;
+    max-width: 30%; }
+
+.ajaxcart__product-name,
+.ajaxcart__product-meta {
+  display: block; }
+
+.ajaxcart__product-name + .ajaxcart__product-meta {
+  padding-top: 3px; }
+
+/*================ Quantity Selectors ================*/
+.js-qty, .ajaxcart__qty {
+  position: relative;
+  margin-bottom: 1em;
+  max-width: 90px;
+  min-width: 90px;
+  overflow: visible;
+  }
+  .js-qty input, .ajaxcart__qty input {
+    background: transparent none repeat scroll 0 0;
+    border-right: medium none;
+    display: block;
+    height: 43px;
+    padding: 0;
+    text-align: center;
+    width: 60px;
+    border-radius: 0; }
+
+.quantity-selector {
+  text-transform: uppercase;
+  line-height: 43px;
+  padding-right: 10px; }
+
+.js-qty__adjust, .ajaxcart__qty-adjust {
+  bottom: 0;
+  cursor: pointer;
+  display: block;
+  font-size: 7px;
+  font-weight: bold;
+  height: 24px;
+  overflow: hidden;
+  padding: 0 8px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 19px;
+  width: 32px;
+  background: transparent none repeat scroll 0 0;
+  border: 1px solid #d7d7d7;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; }
+  .js-qty__adjust:hover, .ajaxcart__qty-adjust:hover, .js-qty__adjust:focus, .ajaxcart__qty-adjust:focus {
+    color: #3ac976; }
+
+.js-qty__adjust--plus, .ajaxcart__qty--plus {
+  top: 0; }
+
+.js-qty__adjust--minus, .ajaxcart__qty--minus {
+  border-top: medium none; }
+
+/*================ Quantity Selectors in Ajax Cart ================*/
+.ajaxcart__qty {
+  margin: 0; }
+  .is-loading .ajaxcart__qty {
+    opacity: 0.5;
+    transition: none; }
+
+.ajaxcart__qty-num {
+  color: #333; }

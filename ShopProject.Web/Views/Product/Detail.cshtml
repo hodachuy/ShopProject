@@ -1,0 +1,176 @@
+﻿@model ShopProject.Web.Models.ProductViewModel
+@{
+    ViewBag.Title = Model.Name;
+    ViewBag.MetaKeyword = Model.MetaKeyword;
+    ViewBag.MetaDescription = Model.MetaDescription;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section footerJS{
+        <!-- Image ProductDetail-->
+<script type="text/javascript" src="~/assets/client/js/jquery.flexisel.js"></script>
+<script src="~/assets/client/js/jquery.etalage.min.js"></script>
+<script type="text/javascript">
+    jQuery(document).ready(function ($) {
+			$("#flexiselDemo1").flexisel({
+				visibleItems: 5,
+				animationSpeed: 1000,
+				autoPlay: true,
+				autoPlaySpeed: 3000,
+				pauseOnHover: true,
+				enableResponsiveBreakpoints: true,
+		    	responsiveBreakpoints: {
+		    		portrait: {
+		    			changePoint:480,
+		    			visibleItems: 1
+		    		},
+		    		landscape: {
+		    			changePoint:640,
+		    			visibleItems: 2
+		    		},
+		    		tablet: {
+		    			changePoint:768,
+		    			visibleItems: 3
+		    		}
+		    	}
+		    });
+			$('#etalage').etalage({
+			    thumb_image_width: 300,
+			    thumb_image_height: 400,
+			    source_image_width: 900,
+			    source_image_height: 1200,
+			    show_hint: true,
+			    click_callback: function (image_anchor, instance_id) {
+			        alert('Callback example:\nYou clicked on an image with the anchor: "' + image_anchor + '"\n(in Etalage instance: "' + instance_id + '")');
+			    }
+			});
+		});
+</script>
+}
+
+<div class="single_top">
+    <div class="single_grid">
+        <div class="grid images_3_of_2">
+            <ul id="etalage">
+                <li>
+                    <a href="optionallink.html">
+                        @if (@Model.Image == null)
+                        {
+                            <img class="etalage_thumb_image" src="~/assets/admin/img/NoImage.jpg" />
+                            <img class="etalage_source_image" src="~/assets/admin/img/NoImage.jpg" title="" />
+                        }
+                        else
+                        {
+                            <img class="etalage_thumb_image" src="~/fileman/Uploads/Product/@Model.Image" />
+                            <img class="etalage_source_image" src="~/fileman/Uploads/Product/@Model.Image" title="" />
+                        }
+                    </a>
+                </li>
+                @foreach (var images in (IEnumerable<ShopProject.Web.Models.FileImageViewModel>)ViewBag.MultiImages)
+                {
+                    <li>
+                        <img class="etalage_thumb_image" src="~/fileman/Uploads/Product/@images.FileName" />
+                        <img class="etalage_source_image" src="~/fileman/Uploads/Product/@images.FileName" title="" />
+                    </li>
+                }
+            </ul>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="desc1 span_3_of_2">
+
+
+            <h4>@Model.Name</h4>
+            <div class="cart-b">
+                <div class="leftcart" style="float:left;margin:3% 0;padding:1em 0;width:70%">
+                    @{var discountPercentage = ((Model.Price - Model.PromotionPrice) * 100) / Model.PromotionPrice; }
+                    @if (Model.PromotionPrice != null)
+                    {
+                        <div class="left-n"> @Model.Price.ToString("N0").Replace(',', '.') VNĐ</div>
+                        <div class="clear"></div>
+                        <div class="left-n"><p style="font-size:small">Giá trước đây:<em style="text-decoration: line-through;">@Model.PromotionPrice.Value.ToString("N0").Replace(',', '.') VNĐ </em>&nbsp;</p></div>
+                        <div class="clear"></div>
+                        <div class="left-n"><p style="font-size:small">Tiết kiệm @Math.Round((double)discountPercentage, 0, MidpointRounding.AwayFromZero)%</p></div>
+
+                    }
+                    else
+                    {
+                        <div class="left-n "> @Model.Price.ToString("N0").Replace(',', '.') VNĐ</div>
+
+                    }
+                </div>
+                <div class="rightcart" style="float:right;margin:3% 0;padding:1em 0;width:30%">
+                    <a class="now-get get-cart-in btnAddToCart" href="#" data-id="@Model.ID" >MUA HÀNG</a>
+                </div>
+                
+                <div class="clearfix"></div>
+            </div>
+            <h6>@Model.Quantity sản phẩm trong kho. </h6>
+            <p>@Model.Description</p>
+            <div class="tag" style="display:block">
+                <h5>Tag :</h5>
+                <ul class="taglist">
+                    @foreach (var tag in (IEnumerable<ShopProject.Web.Models.TagViewModel>)ViewBag.Tags)
+                    {
+                        <li style="float:left">
+                            <a href="/tag/@(tag.ID).html">@tag.Name.Replace(',',' ') &nbsp;</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+            <div class="share">
+                <h5>Share Product :</h5>
+                <ul class="share_nav">
+                    <li><a href="#"><img src="~/assets/client/images/facebook.png" title="facebook"></a></li>
+                    <li><a href="#"><img src="~/assets/client/images/twitter.png" title="Twiiter"></a></li>
+                    <li><a href="#"><img src="~/assets/client/images/rss.png" title="Rss"></a></li>
+                    <li><a href="#"><img src="~/assets/client/images/gpluse.png" title="Google+"></a></li>
+                </ul>
+            </div>
+
+
+        </div>
+        <div class="clearfix"> </div>
+    </div>
+
+    <div class="toogle" style="border-top:2px solid #F97E76">
+        <h3 class="m_3" style="font-weight:bold">Thông Tin Sản Phẩm</h3>
+        <p class="m_text">@Html.Raw(Model.Content)</p>
+    </div>
+
+    <div class="clearfix"></div>
+    <hr style="border-top:2px solid #F97E76"/>
+    <div class="clearfix"></div>
+    @{ var relatedProduct = (IEnumerable<ShopProject.Web.Models.ProductViewModel>)ViewBag.RelatedProducts; }
+    @if (relatedProduct.Count() > 3)
+    {
+    <ul id="flexiselDemo1">
+        @foreach (var product in relatedProduct)
+        {
+            <li style="width:200px;height:300px">
+                <a href="/@(product.Alias).p-@(product.ID).html">
+                    @if(product.Image == null)
+                    {
+                        <img src="~/assets/admin/img/NoImage.jpg" alt="" style="width:90%;height:85%" />
+                    }
+                    else
+                    {
+                        <img src="~/fileman/Uploads/Product/@product.Image" style="width:90%;height:85%" />
+                    }                
+                    <div class="grid-flex">
+                        @product.Name
+
+                        <p>@product.Price.ToString("N0").Replace(',', '.') VNĐ</p>
+                        
+                    </div>
+                </a>
+            </li>
+        }
+    </ul>
+    }
+    else
+    {
+        <div class="clear"></div>
+    }
+</div>
+
+

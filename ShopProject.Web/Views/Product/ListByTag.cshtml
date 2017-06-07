@@ -1,0 +1,141 @@
+﻿@model ShopProject.Web.Infrastructure.Core.PaginationSet<ShopProject.Web.Models.ProductViewModel>
+@{
+    var tag = (ShopProject.Web.Models.TagViewModel)ViewBag.Tag;
+    var pageIndex = Model.Page;
+    ViewBag.Title = pageIndex == 1 ? "Kết quả tìm kiếm cho tag " + tag.Name : "Kết quả tìm kiếm cho tag " + tag.Name + " - Trang " + pageIndex;
+    ViewBag.MetaKeyword = pageIndex == 1 ? "Kết quả tìm kiếm cho tag " + tag.Name : "Kết quả tìm kiếm cho tag " + tag.Name + " - Trang " + pageIndex;
+    ViewBag.MetaDescription = pageIndex == 1 ? "Kết quả tìm kiếm cho tag " + tag.Name : "Kết quả tìm kiếm cho tag " + tag.Name + " - Trang " + pageIndex;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<div class="women-product">
+@if (Model.Count > 0)
+{
+    <div class="w_content">
+        <div class="women">
+            <a href=""><h4>Tag: @tag.Name - <span>@Model.TotalCount sản phẩm</span> </h4></a>
+            <div class="clearfix"> </div>
+        </div>
+    </div>
+
+
+        <div class="grid-product">
+            @foreach (var product in Model.Items)
+            {
+                var discountPercentage = ((product.Price - product.PromotionPrice) * 100) / product.PromotionPrice;
+                var url = "/" + product.Alias + ".p-" + product.ID + ".html";
+            <!-- grids_of_4 -->
+                <div class="col-md-4 chain-grid">
+                    @if (product.Image == null)
+                    {
+                        <a href="@url"><img class="img-responsive chain" src="~/assets/admin/img/NoImage.jpg" alt="" style="width:160px;height:250px" /></a>
+                    }
+                    else
+                    {
+                        <a href="@url"><img class="img-responsive chain" src="~/fileman/Uploads/Product/@product.Image" alt="@product.Name" style="width:160px;height:250px" /></a>
+
+                    }
+                    @if (product.ProductNewFlag == true)
+                    {
+                        <span class="star"> </span>
+                    }
+                    @if (product.DiscountFlag == true && product.PromotionPrice.HasValue)
+                    {
+                        <span class="onsale"><span class="onsale-discount">@Math.Round((double)discountPercentage, 0, MidpointRounding.AwayFromZero)%</span></span>
+                    }
+                    <div class="grid-chain-bottom" style="width:245px;height:190px">
+                        <h6><a href="@url" style="font-family:'Times New Roman';font-size:medium">@product.Name</a></h6>
+                        <div class="star-price">
+                            <div class="dolor-grid">
+                               @if (product.PromotionPrice != null)
+                               {
+                                <span class="actual" style="color:#d21f30">@product.Price.ToString("N0").Replace(',', '.') VNĐ</span>
+
+                                <div class="clear"></div>
+                                <span class="reducedfrom"> @product.PromotionPrice.Value.ToString("N0").Replace(',', '.') VNĐ</span>
+                                <p style="font-size:small">@Math.Round((double)discountPercentage, 0, MidpointRounding.AwayFromZero)%</p>
+                               }
+                               else
+                               {
+                                <span class="actual" style="color:#d21f30">@product.Price.ToString("N0").Replace(',', '.') VNĐ</span>
+
+                               }
+                                <span class="rating">
+                                    <input type="radio" class="rating-input" id="rating-input-1-5" name="rating-input-1">
+                                    <label for="rating-input-1-5" class="rating-star1"> </label>
+                                    <input type="radio" class="rating-input" id="rating-input-1-4" name="rating-input-1">
+                                    <label for="rating-input-1-4" class="rating-star1"> </label>
+                                    <input type="radio" class="rating-input" id="rating-input-1-3" name="rating-input-1">
+                                    <label for="rating-input-1-3" class="rating-star"> </label>
+                                    <input type="radio" class="rating-input" id="rating-input-1-2" name="rating-input-1">
+                                    <label for="rating-input-1-2" class="rating-star"> </label>
+                                    <input type="radio" class="rating-input" id="rating-input-1-1" name="rating-input-1">
+                                    <label for="rating-input-1-1" class="rating-star"> </label>
+                                </span>
+                            </div>
+                            <a class="now-get get-cart-in btnAddToCart" href="#" data-id="@product.ID">MUA HÀNG</a>
+                            <div class="clearfix"> </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="clearfix"> </div>
+            @if (Model.TotalPages > 1)
+            {
+                // Create numeric links
+                var startPageIndex = Math.Max(1, Model.Page - Model.MaxPage / 2);
+                var endPageIndex = Math.Min(Model.TotalPages, Model.Page + Model.MaxPage / 2);
+
+                <nav>
+                    <ul class="pagination">
+                        @if (Model.Page > 1)
+                    {
+                            <li>
+                                <a href="?page=1" aria-label="First">
+                                    <i class="fa fa-angle-double-left"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="?page=@(Model.Page-1)" aria-label="Previous">
+                                    <i class="fa fa-angle-double-left"></i>
+                                </a>
+                            </li>
+                        }
+                        @for (int i = startPageIndex; i <= endPageIndex; i++)
+                    {
+                        if (Model.Page == i)
+                        {
+                                <li class="active"><a href="?page=@i" title="Trang @i">@i</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="?page=@i" title="Trang @i">@i</a></li>
+                            }
+                        }
+                        @if (Model.Page < Model.TotalPages)
+                    {
+                            <li>
+                                <a href="?page=@(Model.Page+1)" aria-label="Next">
+                                    <i class="fa fa-angle-double-right"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="?page=@Model.TotalPages" aria-label="Last">
+                                    <i class="fa fa-angle-double-right"></i>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="text-center">Không có sản phẩm nào được tìm thấy.</div>
+    }
+
+
+
+</div> 

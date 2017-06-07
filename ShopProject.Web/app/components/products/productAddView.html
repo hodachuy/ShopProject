@@ -1,0 +1,413 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Product Form
+        <small>it all starts here</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="admin"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a ui-sref="products">List product</a></li>
+        <li class="active">Create</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <!-- Default box -->
+    <form class="row" novalidate name="frmAddProduct" role="form" ng-submit="AddProduct()" ng-keypress="keyPressed($event)">
+        <div class="box">
+            <div class="col-md-12">
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Thông Tin Sản Phẩm</h3>
+                        <label class="pull-right">Xem Truoc</label>                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Nội Dung</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group" ng-class="{ 'has-error' : frmAddProduct.name.$invalid && !frmAddProduct.name.$pristine }">
+                        <label for="exampleInputEmail1">Tên<span style="color:red">*</span></label>
+                        <input type="text" name="name" class="form-control" placeholder="Iphone" ng-model="product.Name" ng-change="GetSeoTitle()" required>
+                        <span ng-show="frmAddProduct.name.$touched && frmAddProduct.name.$invalid" class="has-error">Yêu cầu nhập tên.</span>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : frmAddProduct.alias.$invalid && !frmAddProduct.alias.$pristine }">
+                        <label for="exampleInputEmail1">Alias<span style="color:red">*</span></label>
+                        <input type="text" name="alias" autocomplete="off" class="form-control" placeholder="i-phone" ng-model="product.Alias" required>
+                        <span ng-show="frmAddProduct.alias.$touched && frmAddProduct.alias.$invalid" class="has-error">Yêu cầu nhập tên riêng.</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Mô Tả Ngắn</label>
+                        <textarea name="desciption" class="form-control" placeholder="Hàng xách tay chính hãng" ng-model="product.Description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Thông Tin Chi Tiết</label>
+                        <textarea name="content" class="form-control" ui-tinymce="tinymceOptions" ng-model="product.Content"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Hình Ảnh</h3>
+                </div>
+                <div class="box-body">
+
+                    <div class="form-group">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">Hình Đại Diện</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div>
+                                        <input type="file" id="filesImage" name="file" class="fileImage" ng-model-instant onchange="angular.element(this).scope().imageUpload(event)" />
+                                        <span class="pip" style="display:none">
+                                            <img class="imageThumb" ng-src="{{product.Image}}" title="{{FileName}}" />
+                                            <br />
+                                            <span class="remove">
+                                                Remove
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="panel panel-info">
+                            <div class="panel-heading">Hình Ảnh Chi Tiết</div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-7">
+                                        <input type="file" id="files" ng-model-instant input-files="GetFilesInput($files)" multiple="" />
+                                    </div>
+                                </div>
+                                <table class="table table-hover table-boardered">
+                                    <thead>
+                                        <tr>
+                                            <td>Title</td>
+                                            <td>Image</td>
+                                            <td>Size</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="image in imgsrc track by $index">
+                                            <td>{{image.Name}}</td>
+                                            <td>
+                                                <img ng-src="{{image.Src}}" title="{{image.Name}}" style="width:100px" />
+                                            </td>
+                                            <td>{{image.Size}}</td>
+                                            <td>
+                                                <input type="button" class="btn btn-success " ng-click="deleteTempImage($index,image)" value="delete" />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Giá Tiền - Số Lượng Hàng - Thông Tin Bảo Hành</h3>
+                </div>
+                <div class="box-body">
+                    <div class="col-md-4" ng-class="{ 'has-error' : frmAddProduct.originalPrice.$invalid && !frmAddProduct.originalPrice.$pristine }">
+                        <label for="exampleInputEmail1">Giá Nhập Hàng<span style="color:red">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" class="form-control" name="originalPrice" placeholder="17.000.000 vnđ" ng-model="product.OriginalPrice" ui-number-mask="0" required>
+                            <span class="input-group-addon">vnđ</span>
+                            <!--<span ng-show="frmAddProduct.originalPrice.$touched && frmAddProduct.originalPrice.$invalid" class="has-error">Yêu cầu giá tiền nhập hàng.</span>-->
+                        </div>
+                    </div>
+
+                    <div class="col-md-4" ng-class="{ 'has-error' : frmAddProduct.price.$invalid && !frmAddProduct.price.$pristine }">
+                        <label for="exampleInputEmail1">Giá Bán<span style="color:red">*</span></label>
+                        <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" name="price" class="form-control" placeholder="18.500.000 vnđ" ng-model="product.Price" ui-number-mask="0" required>
+                            <span class="input-group-addon">vnđ</span>
+                            <!--<span ng-show="frmAddProduct.price.$touched && frmAddProduct.price.$invalid" class="has-error">Yêu cầu nhập giá bán.</span>-->
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="exampleInputEmail1">Giá Khuyến Mãi</label>
+                        <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" name="promotionprice" class="form-control discountPrice" placeholder="19.299.000 vnđ" ng-model="product.PromotionPrice" ui-number-mask="0">
+                            <span class="input-group-addon">vnđ</span>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Số Lượng</label>
+                            <input type="number" min="0" class="form-control" placeholder="100" name="quantity" ng-model="product.Quantity">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Thời Gian Bảo Hành</label>
+                            <input type="text" name="warranty" class="form-control" placeholder="12 tháng" ng-model="product.Warranty">
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="box box-primary">
+                <div class="box-body">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Từ Khóa SEO WEB</label>
+                        <input type="text" name="metakeyword" class="form-control" placeholder="iphone xách tay" ng-model="product.MetaKeyword">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Mô Tả SEO</label>
+                        <textarea name="metadescription" class="form-control" placeholder="iphone huyshop" ng-model="product.MetaDescription"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Thiết Lập Hiển Thị</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        <input type="checkbox" name="fancy-checkbox-default" id="fancy-checkbox-default" autocomplete="off" ng-model="product.Status" ng-checked="product.Status" />
+                        <div class="btn-group">
+                            <label for="fancy-checkbox-default" class="btn btn-default">
+                                <span class="glyphicon glyphicon-ok"></span>
+                                <span> </span>
+                            </label>
+                            <label for="fancy-checkbox-default" class="btn btn-default active">
+                                Kích Hoạt
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Hiển Thị Nhãn Dán</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        <input type="checkbox" name="fancy-checkbox-info" id="fancy-checkbox-info" autocomplete="off" ng-model="product.ProductNewFlag" ng-checked="product.ProductNewFlag" />
+                        <div class="btn-group">
+                            <label for="fancy-checkbox-info" class="btn btn-info">
+                                <span class="glyphicon glyphicon-ok"></span>
+                                <span> </span>
+                            </label>
+                            <label for="fancy-checkbox-info" class="btn btn-default active">
+                                Nhãn Sản Phẩm Mới
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="fancy-checkbox-warning" id="fancy-checkbox-warning" autocomplete="off" ng-model="product.DiscountFlag" ng-checked="product.DiscountFlag" />
+                        <div class="btn-group">
+                            <label for="fancy-checkbox-warning" class="btn btn-warning">
+                                <span class="glyphicon glyphicon-ok"></span>
+                                <span> </span>
+                            </label>
+                            <label for="fancy-checkbox-warning" class="btn btn-default active">
+                                Nhãn Giảm Giá %
+                            </label>
+                        </div>                      
+                    </div>
+                </div>
+            </div>
+
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Hiển Thị Nhóm Sản Phẩm</h3>
+                </div>
+                <div class="box-body">
+                    <div class="form-group">
+                        <groups></groups>
+                    </div>
+                </div>
+            </div>
+
+            <div class="box box-primary">
+                <div class="box-body">
+                    <div class="form-group" ng-class="{ 'has-error' : frmAddProduct.CategoryID.$invalid && !frmAddProduct.CategoryID.$pristine }">
+                        <label for="exampleInputEmail1">Loại Sản Phẩm<span style="color:red">*</span></label>
+                        <ui-select ng-model="product.CategoryID" name="parentId" theme="bootstrap" title="Chọn danh mục">
+                            <ui-select-match placeholder="Vui lòng chọn danh mục"><em style="color:rgb(7, 105, 173)">{{$select.selected.Name}}</em></ui-select-match>
+                            <ui-select-choices repeat="item.ID as item in ProductCategory | filter: $select.search">
+                                <div ng-bind-html="item.Name | highlight: $select.search"></div>
+                                <small>
+                                    Tên Danh Mục: <em style="font-weight:bold;font-size:15px;color:rgb(7, 105, 173)">{{item.Name}}</em>
+                                </small>
+                            </ui-select-choices>
+                        </ui-select>
+                        <input type="hidden" name="parentId" ng-model="product.CategoryID" required/>
+                        <span ng-show="frmAddProduct.CategoryID.$touched && frmAddProduct.CategoryID.$invalid" class="has-error">Yêu cầu chọn thể loại sản phẩm.</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="box box-primary">
+                <div class="box-body">
+                    <label for="exampleInputEmail1">Tag</label>
+                    <div class="form-group">
+                        <tags></tags>
+                    </div>
+                    <label>Chọn nhãn hiện có:</label>
+                    <div class="tags ws-nm">
+                        <div class="input-group">
+                            <ul >
+                                <li ng-repeat="tag in AllTag track by $index" class="list-group-item ">
+                                    <em class="tag-item" id="item" value="{{tag.Name}}" valueID="{{tag.ID}}" style="cursor:pointer" ng-click="GetTagItem($index,tag.Name)">{{tag.Name}}</em>            
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8">
+
+                <button class="btn btn-default pull-left" ui-sref="products" type="button">Hủy</button>
+                <button type="submit" class="btn btn-success pull-right" ng-disabled="frmAddProduct.$invalid">Lưu</button>
+       
+        </div>
+    </form>
+
+</section>
+<!-- /.content -->
+<style type="text/css">
+    .has-error{
+        color:red;
+    }
+    input[type="file"] {
+        display: block;
+    }
+
+    .imageThumb {
+        max-height: 100px;
+        max-width:150px;
+        border: 1px solid;
+        padding: 1px;
+        cursor: pointer;
+    }
+
+    .uploader {
+        clear: both;
+    }
+
+    .pip {
+        display: inline-block;
+        margin: 10px 10px 0 0;
+    }
+
+    .remove {
+        display: block;
+        background: #444;
+        border: 1px solid black;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+    }
+
+        .remove:hover {
+            background: white;
+            color: black;
+        }
+
+    .discountPrice::-webkit-input-placeholder {
+        font-weight: normal;
+        text-decoration: line-through;
+    }
+
+    .form-group input[type="checkbox"] {
+        display: none;
+    }
+
+        .form-group input[type="checkbox"] + .btn-group > label span {
+            width: 20px;
+        }
+
+            .form-group input[type="checkbox"] + .btn-group > label span:first-child {
+                display: none;
+            }
+
+            .form-group input[type="checkbox"] + .btn-group > label span:last-child {
+                display: inline-block;
+            }
+
+        .form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
+            display: inline-block;
+        }
+
+        .form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
+            display: none;
+        }
+
+    .ws-nm {
+    white-space: normal;
+}
+
+
+        .tags > .input-group {
+    display: block;
+}
+
+    .tags > .input-group > ul {
+        margin: 0;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        list-style: none;
+    }
+
+        .tags > .input-group > ul > li {
+            margin-right: 3px;
+            margin-bottom: 3px;
+            background: #cae9f7;
+            color: #005e94;
+            display: -ms-inline-flexbox;
+            display: inline-flex;
+            word-wrap: break-word;
+            max-width: 100%;
+            border-radius: 3px;
+        }
+
+            .tags > .input-group > ul > li > label {
+                -webkit-flex: 0 1 auto;
+                -ms-flex: 0 1 auto;
+                flex: 0 1 auto;
+                min-width: 0;
+                width: 100%;
+                display: block !important;
+                padding: 4px 8px;
+                margin: 0;
+            }
+
+                .tags > .input-group > ul > li > label:not(.disabled) {
+                    cursor: pointer;
+                }
+
+            .tags > .input-group > ul > li.collapse {
+                display: none;
+            }
+
+                .tags > .input-group > ul > li.collapse.in {
+                    display: block;
+                }
+</style>

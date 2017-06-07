@@ -1,0 +1,194 @@
+﻿@model ShopProject.Web.Models.HomeViewModel
+@{
+
+    ViewBag.Title = Model.Title;
+    ViewBag.MetaKeyword = Model.MetaKeyword;
+    ViewBag.MetaDescription = Model.MetaDescription;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@section footerJS{
+    <!--Slide-->
+    <script src="~/assets/client/js/jquery.wmuSlider.js"></script>
+    <script>
+        $('.example1').wmuSlider();
+    </script>
+}
+<div class="shoes-grid">
+    <div class="wrap-in">
+        <div class="wmuSlider example1 slide-grid">
+            <div class="wmuSliderWrapper">
+                @foreach (var slide in Model.Slides)
+                {
+                    <article style="position: absolute; width: 100%; opacity: 0;">
+                        <div class="banner-matter">
+                            <div class="col-md-5 banner-bag">
+                                <img class="img-responsive " src="~/fileman/Uploads/ProductCategory/@slide.Image" alt="@slide.Name" />
+                            </div>
+                            <div class="col-md-7 banner-off">
+                                @Html.Raw(slide.Content)
+                            </div>
+
+                            <div class="clearfix"> </div>
+                        </div>
+
+                    </article>
+                }
+            </div>
+            <ul class="wmuSliderPagination">
+                @for (int i = 0; i < Model.Slides.Count(); i++)
+                {
+                    <li><a href="#" class="">i</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="products">
+        <h5 class="latest-product">Sản Phẩm Mới</h5>
+        <a class="view-all" href="tim-kiem.html?keyword=">Xem Tất Cả<span> </span></a>
+    </div>
+
+    <div class="product-left">
+        @foreach (var product in Model.LastestProducts)
+            {
+
+                var discountPercentage = ((product.Price - product.PromotionPrice) * 100) / product.PromotionPrice;
+                var url = "/" + product.Alias + ".p-" + product.ID + ".html";
+            <div class="col-md-4 chain-grid">
+                @if (product.Image == null)
+                {
+                    <a href="@url"><img class="img-responsive chain" src="~/assets/admin/img/NoImage.jpg" alt="" style="width:160px;height:250px" /></a>
+                }
+                else
+                {
+                    <a href="@url"><img class="img-responsive chain" src="~/fileman/Uploads/Product/@product.Image" alt="" style="width:160px;height:250px" /></a>
+                }
+                @if (product.ProductNewFlag == true)
+                {
+                    <span class="star"> </span>
+                }
+                @if (product.DiscountFlag == true && product.PromotionPrice.HasValue)
+                {
+                    <span class="onsale"><span class="onsale-discount">@Math.Round((double)discountPercentage, 0, MidpointRounding.AwayFromZero)%</span></span>
+                }
+                <div class="grid-chain-bottom" style="width:245px;height:190px">
+                    <h6><a href="@url" style="font-family:'Times New Roman';font-size:medium">@product.Name</a></h6>
+                    <div class="star-price">
+                        <div class="dolor-grid">
+                            @if (product.PromotionPrice != null)
+                            {
+                                <span class="actual" style="color:#d21f30">
+                                    @product.Price.ToString("N0").Replace(',', '.') VNĐ
+                                </span>
+
+                                    <div class="clear"></div>
+                                    <span class="reducedfrom"> @product.PromotionPrice.Value.ToString("N0").Replace(',', '.') VNĐ</span>
+                                    <p style="font-size:small">Tiết kiệm @Math.Round((double)discountPercentage, 0, MidpointRounding.AwayFromZero)%</p>
+                            }
+                            else
+                            {
+                                <span class="actual" style="color:#d21f30">@product.Price.ToString("N0").Replace(',', '.') VNĐ</span>
+
+                            }
+                            <span class="rating">
+                                <input type="radio" class="rating-input" id="rating-input-1-5" name="rating-input-1">
+                                <label for="rating-input-1-5" class="rating-star1"> </label>
+                                <input type="radio" class="rating-input" id="rating-input-1-4" name="rating-input-1">
+                                <label for="rating-input-1-4" class="rating-star1"> </label>
+                                <input type="radio" class="rating-input" id="rating-input-1-3" name="rating-input-1">
+                                <label for="rating-input-1-3" class="rating-star"> </label>
+                                <input type="radio" class="rating-input" id="rating-input-1-2" name="rating-input-1">
+                                <label for="rating-input-1-2" class="rating-star"> </label>
+                                <input type="radio" class="rating-input" id="rating-input-1-1" name="rating-input-1">
+                                <label for="rating-input-1-1" class="rating-star"> </label>
+                            </span>
+                        </div>
+                        <a class="now-get get-cart-in btnAddToCart drawer-toggle" href="#" data-id="@product.ID">MUA HÀNG</a>
+                        <div class="clearfix"> </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+        <div class="clearfix"> </div>
+    </div>
+
+    @foreach (var group in Model.GroupActice)
+    {
+        if (group.HomeFlag == true)
+        {
+            var urlGroup = "/" + group.Alias + ".gr-" + group.ID + ".html";
+            <div class="products">
+                <h5 class="latest-product">@group.Name</h5>
+                <a class="view-all" href="@urlGroup">Xem Tất Cả<span> </span></a>
+            </div>
+            <div class="product-left">
+                @foreach (var product in group.Products)
+                {
+                    var discountPercentage = ((product.Price - product.PromotionPrice) * 100) / product.PromotionPrice;
+                    var url = "/" + product.Alias + ".p-" + product.ID + ".html";
+
+                    <div class="col-md-4 chain-grid">
+                        @if (product.Image == null)
+                        {
+                            <a href="@url"><img class="img-responsive chain" src="~/assets/admin/img/NoImage.jpg" alt="" style="width:160px;height:250px" /></a>
+                        }
+                        else
+                        {
+                            <a href="@url"><img class="img-responsive chain" src="~/fileman/Uploads/Product/@product.Image" alt="" style="width:160px;height:250px" /></a>
+                        }
+
+                        @if (product.ProductNewFlag == true)
+                        {
+                            <span class="star"> </span>
+                        }
+                        @if (product.DiscountFlag == true && product.PromotionPrice.HasValue)
+                        {
+                            <span class="onsale"><span class="onsale-discount">@Math.Round((double)discountPercentage, 0, MidpointRounding.AwayFromZero)%</span></span>
+                        }
+                        <div class="grid-chain-bottom" style="width:245px;height:190px">
+                            <h6><a href="@url" style="font-family:'Times New Roman';font-size:medium">@product.Name</a></h6>
+                            <div class="star-price">
+                                <div class="dolor-grid">
+                                    @if (product.PromotionPrice != null)
+                                    {
+                                        <span class="actual" style="color:#d21f30">@product.Price.ToString("N0").Replace(',', '.') VNĐ</span>
+
+                                        <div class="clear"></div>
+                                        <span class="reducedfrom"> @product.PromotionPrice.Value.ToString("N0").Replace(',', '.') VNĐ</span>
+                                        <p style="font-size:small">Tiết kiệm @Math.Round((double)discountPercentage, 0, MidpointRounding.AwayFromZero)%</p>
+                                    }
+                                    else
+                                    {
+                                        <span class="actual" style="color:#d21f30">@product.Price.ToString("N0").Replace(',', '.') VNĐ</span>
+
+                                    }
+                                    <span class="rating">
+                                        <input type="radio" class="rating-input" id="rating-input-1-5" name="rating-input-1">
+                                        <label for="rating-input-1-5" class="rating-star1"> </label>
+                                        <input type="radio" class="rating-input" id="rating-input-1-4" name="rating-input-1">
+                                        <label for="rating-input-1-4" class="rating-star1"> </label>
+                                        <input type="radio" class="rating-input" id="rating-input-1-3" name="rating-input-1">
+                                        <label for="rating-input-1-3" class="rating-star"> </label>
+                                        <input type="radio" class="rating-input" id="rating-input-1-2" name="rating-input-1">
+                                        <label for="rating-input-1-2" class="rating-star"> </label>
+                                        <input type="radio" class="rating-input" id="rating-input-1-1" name="rating-input-1">
+                                        <label for="rating-input-1-1" class="rating-star"> </label>
+                                    </span>
+                                </div>
+                                <a class="now-get get-cart-in btnAddToCart drawer-toggle" href="#" data-id="@product.ID">MUA HÀNG</a>
+                                <div class="clearfix"> </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="clearfix"> </div>
+            </div>
+        }
+    }
+
+
+
+</div>

@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "ConfirmOrder";
+    Layout = "~/Views/ShoppingCart/_LayoutCart.cshtml";
+}
+
+@{
+   var success = (bool)ViewBag.IsSuccess;
+}
+@if (success)
+{
+    <span style="margin-left:30%">@ViewBag.Result<a href="/">click vào đây</a> để về trang chủ.</span>
+}
+else
+{
+    <span style="margin-left:30%">@ViewBag.Result <a href="/">click vào đây</a> để về trang chủ.</span>
+}

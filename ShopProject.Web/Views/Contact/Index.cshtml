@@ -1,0 +1,112 @@
+﻿@model ShopProject.Web.Models.FeedbackViewModel
+@using BotDetect.Web.Mvc;
+@{
+    ViewBag.Title = "Liên hệ";
+    ViewBag.MetaKeyword = "liên hệ";
+    ViewBag.MetaDescription = "Thông tin liên hệ BIG SHOP";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section footerJS{
+    <!--Map-->
+    <script>
+        function initMap() {
+
+            var uluru = { lat: parseFloat($('#hidLat').val()), lng: parseFloat($('#hidLng').val()) };
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 17,
+                center: uluru
+            });
+
+            var contentString = $('#hidAddress').val();
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
+            var marker = new google.maps.Marker({
+                position: uluru,
+                map: map,
+                title: $('#hidName').val()
+            });
+            infowindow.open(map, marker);
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZE8lAK99v62nAZj-tZlwMc7rKqEbWs-s&callback=initMap"></script>
+    <script type='text/javascript'>
+    $(document).ready( function()
+    {
+       var input = $('.input-validation-error:first');
+
+       if(input)
+       {
+           input.focus();
+       }
+    });
+    </script>
+}
+<style>
+    #map {
+        height: 300px;
+    }
+</style>
+<link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl" rel="stylesheet" type="text/css" />
+<input type="hidden" id="hidAddress" value="@Model.ContactDetail.Name<br />Điện thoại:@Model.ContactDetail.Phone <br>Địa chỉ: @Model.ContactDetail.Address" />
+<input type="hidden" id="hidLat" value="@Model.ContactDetail.Lat" />
+<input type="hidden" id="hidLng" value="@Model.ContactDetail.Lng" />
+<input type="hidden" id="hidName" value="@Model.ContactDetail.Name" />
+<div class="main">
+    <div class="reservation_top">
+        <div class="contact_right">
+            @if (ViewData["SuccessMsg"] != null)
+            {
+                <div class="alert alert-success" role="alert">
+                    <strong>Cảm ơn bạn! </strong> gửi phản hồi tới chúng tôi.
+                    <br />Chúng tôi sẽ liên hệ lại sớm nhất có thể.
+                </div>
+            }
+            <h3>Thông tin liên hệ</h3>
+            <address class="address">
+                <p>@Model.ContactDetail.Address</p>
+                <dl>
+                    <dt> </dt>
+                    <dd>Điện thoại:<span> @Model.ContactDetail.Phone</span></dd>
+                    <dd>E-mail:&nbsp; <a href="mailto:@(Model.ContactDetail.Email)">@(Model.ContactDetail.Email)</a></dd>
+                </dl>
+            </address>
+            <div class="clearfix"></div>
+            <div id="map"></div>
+        </div>
+    </div>
+    <div class="reservation_top">
+        <div class="contact_right">
+            <h3>Gửi thông tin liên hệ</h3>
+            <div class="contact-form">
+                @using (Html.BeginForm("SendFeedback", "Contact", FormMethod.Post, new { @role = "form", @class = "submit-form" }))
+                {
+                    @Html.AntiForgeryToken()
+
+
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.Name, new { @class = "textbox", @placeholder = "Thông tin họ và tên ...", name = "Name" });
+                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    @Html.TextBoxFor(model => model.Email, new { @class = "textbox", @placeholder = "Thông tin địa chỉ email...", name = "Email" });
+                    @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                    @Html.TextAreaFor(model => model.Message, new { @placeholder = "Thông tin phản hồi...", name = "Message" });
+                    MvcCaptcha registrationCaptcha = Shopproject.Common.CaptchaHelper.GetRegistrationCaptcha("RegistrationCaptcha");
+                    if (!registrationCaptcha.IsSolved)
+                    {
+
+                        @Html.Captcha(registrationCaptcha)
+
+                        @Html.ValidationMessage("CaptchaCode", "", new { @class = "text-danger" })
+                        @Html.TextBox("CaptchaCode", null, new { @class = "captchaVal" })
+
+
+                    }
+                    <input type="submit" value="Gửi đi">
+                    <div class="clearfix"> </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>
+        Big Shop - Thanh toán đơn hàng
+    </title>
+    <meta name="description" content="Big Shop - Thanh to&#225;n đơn h&#224;ng" />
+    <link href="~/assets/client/css/cartCheckout.css" rel="stylesheet" type='text/css' media='all' />
+    <link href="~/assets/admin/libs/jqueri-ui/themes/smoothness/jquery-ui.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=no">
+
+</head>
+
+<body class="step1">
+    <span class="fbtracker-checkout"></span>
+    <a href="/"><h1><span class="btn-back">Quay về trang chủ</span>  Big Shop</h1></a>
+    @RenderBody()
+ 
+</body>
+</html>
+<script src="~/assets/client/js/jquery.min.js"></script>
+<script src="~/assets/admin/libs/mustache/mustache.js"></script>
+<script src="~/assets/admin/libs/numeral/numeral.js"></script>
+<script src="~/assets/admin/libs/jquery-validation/dist/jquery.validate.js"></script>
+<script src="~/assets/admin/libs/jquery-validation/dist/additional-methods.min.js"></script>
+<script src="~/assets/client/js/controller/checkoutCart.js"></script>
+
+<script id="tplCheckOut" type="x-tmpl-mustache">
+    <div class="list_item cart-item">
+        <span style="display:none">{{ProductId}}</span>
+        <span style="display:none">{{Image}}</span>
+        <span style="display:none">{{PriceFormat}}</span>
+        <span style="display:none">{{Price}}</span>
+        <span>{{Quantity}} x</span>
+        <span style="text-transform:uppercase"> {{ProductName}} </span>
+        <span id="amount_{{ProductId}}">{{Amount}} </span>₫
+        <p class="variant-title"></p>
+        <input type="hidden" min="0" data-id="{{ProductId}}" data-price="{{Price}}" value="{{Quantity}}" data-quantity="{{QuantityDb}}" class="input txtQuantity" id="dfQuantity_{{ProductId}}" />
+
+    </div>
+</script>

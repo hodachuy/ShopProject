@@ -1,0 +1,152 @@
+﻿<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        Slide Form
+        <small>it all starts here</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a ui-sref="admin"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a ui-sref="product_categories">List Slide</a></li>
+        <li class="active">Create</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <!-- Default box -->
+    <div class="box">
+        <div class="box-body">
+            <div class="col-md-12">
+                <!-- Horizontal Form -->
+                <div class="box box-info">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Add Slide</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <!-- Su dung co che novalidate de khoi su dung co che validate mac dinh cua form -->
+                    <!-- ng-submit se goi su kien submit toi button submit Save -->
+
+                    <form class="form-horizontal" novalidate name="frmAddSlide" role="form" ng-submit="AddSlide()">
+                        <div class="box-body">
+                            <div class="form-group" ng-class="{ 'has-error' : frmAddSlide.name.$invalid && !frmAddSlide.name.$pristine }">
+                                <label for="inputEmail3" class="col-sm-2 control-label">Tên</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="name" class="form-control" placeholder="Name" ng-model="slide.Name" ng-change="GetSeoTitle()">
+                                    <span ng-show="frmAddSlide.name.$touched && frmAddSlide.name.$invalid" class="has-error">Yêu cầu nhập tên.</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Mô Tả Ngắn</label>
+                                <div class="col-sm-10">
+                                  
+                                    <textarea name="desciption" class="form-control" ng-model="slide.Description"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Nội Dung</label>
+                                <div class="col-sm-10">
+
+                                    <textarea name="content" class="form-control" ui-tinymce="tinymceOptions" ng-model="slide.Content"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Image</label>
+                                <div class="col-sm-10">                                       
+                                    <input type="file" id="filesImage" name="file" ng-model-instant onchange="angular.element(this).scope().imageUpload(event)" />    
+                                    <span class="pip" style="display:none;">
+                                        <img class="imageThumb" ng-src="{{slide.Image}}" title="{{FileName}}" />
+                                        <br />
+                                        <span class="remove">
+                                            Remove
+                                        </span>
+                                    </span>                                                                                                                            
+                                </div>                              
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Thứ Tự Hiển Thị</label>
+                                <div class="col-sm-10">
+                                    <input type="number" name="displayorder" class="form-control" placeholder="1" ng-model="slide.DisplayOrder">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="inputPassword3" class="col-sm-2 control-label">Url</label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="metakeyword" class="form-control" placeholder="#" ng-model="slide.Url">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" ng-model="slide.Status" ng-checked="slide.Status"> Active
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <button class="btn btn-default" ui-sref="slides">Hủy</button>
+                            <button type="submit" class="btn btn-info pull-right" ng-disabled="frmAddslide.$invalid">Lưu</button>
+                        </div>
+                        <!-- /.box-footer -->
+                    </form>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <!-- /.box-footer-->
+        </div>
+        <!-- /.box -->
+    </div>
+</section>
+<!-- /.content -->
+<style type="text/css">
+    .has-error{
+        color:red;
+    }
+    input[type="file"] {
+  display: block;
+}
+.imageThumb {
+  max-height: 75px;
+  border: 2px solid;
+  padding: 1px;
+  cursor: pointer;
+}
+
+.uploader{
+    clear:both;
+}
+.pip {
+  display: inline-block;
+  margin: 10px 10px 0 0;
+}
+.remove {
+  display: block;
+  background: #444;
+  border: 1px solid black;
+  color: white;
+  text-align: center;
+  cursor: pointer;
+}
+.remove:hover {
+  background: white;
+  color: black;
+}
+
+option:first-child
+{
+  font-weight: bold;  
+}
+.bold {
+  font-weight:bold;
+}
+
+</style>

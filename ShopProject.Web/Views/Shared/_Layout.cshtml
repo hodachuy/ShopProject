@@ -1,0 +1,96 @@
+﻿<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="~/assets/client/images/logo.png" type="image/x-icon" />
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="@ViewBag.MetaKeyword">
+    <meta name="keywords" content="@ViewBag.MetaDescription">
+    @*<link href="~/assets/client/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/assets/client/css/font-awesome-4.6.3/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/assets/client/css/style.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="~/assets/client/css/custom.css" rel="stylesheet" />
+    <link href="~/assets/admin/libs/jqueri-ui/themes/smoothness/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/assets/client/css/etalage.css" rel="stylesheet" />
+    <link href="~/assets/admin/libs/toastr/toastr.css" rel="stylesheet" />
+    <link href="~/assets/admin/libs/drawer/dist/css/drawer.css" rel="stylesheet" />
+    <link href="~/assets/client/css/cartTemplate.css" rel="stylesheet" />
+    <link href="~/assets/client/menudropdown/css/styleMenu.css" rel="stylesheet" />*@
+    @Styles.Render("~/css/base")
+    <!--//theme-style-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!--fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!--//fonts-->
+    <!--script-->
+</head>
+<body class="drawer drawer--right">
+    <!--header-->
+    @{Html.RenderAction("Header", "Home"); }
+
+    <header role="banner">
+        <div class="drawer-nav" role="navigation" id="wrapper" style="overflow:auto">
+            @{Html.RenderAction("ViewCart", "ShoppingCart"); }
+        </div>
+    </header>
+    <div class="container">
+        @RenderBody()
+        <!--Danh muc san pham-->
+        @{ Html.RenderAction("Category", "Home");}
+        <a href="#" id="back-to-top" title="Back to top">&uarr;</a>
+    </div>
+    <!---->
+    @{ Html.RenderAction("Footer", "Home");}
+
+    <div class="clearfix"> </div>
+
+    @*<script src="~/assets/client/js/jquery.min.js"></script>
+    <script src="~/assets/admin/libs/jqueri-ui/jquery-ui.min.js"></script>
+    <script src="~/assets/admin/libs/mustache/mustache.js"></script>
+    <script src="~/assets/admin/libs/numeral/numeral.js"></script>
+    <script src="~/assets/admin/libs/iscroll/build/iscroll.js"></script>
+    <script src="~/assets/admin/libs/drawer/dist/js/drawer.js"></script>
+    <script src="~/assets/admin/libs/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/assets/client/js/controller/shoppingCart.js"></script>
+    <script src="~/assets/client/js/Common.js"></script>
+    <script src="~/assets/admin/libs/toastr/toastr.js"></script>*@
+    @Scripts.Render("~/js/jquery")
+    @Scripts.Render("~/js/plugins")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.drawer').drawer();
+        });
+    </script>   
+    <script>
+        if ($('#back-to-top').length) {
+            var scrollTrigger = 200, // px
+                backToTop = function () {
+                    var scrollTop = $(window).scrollTop();
+                    if (scrollTop > scrollTrigger) {
+                        $('#back-to-top').addClass('show');
+                    } else {
+                        $('#back-to-top').removeClass('show');
+                    }
+                };
+            backToTop();
+            $(window).on('scroll', function () {
+                backToTop();
+            });
+            $('#back-to-top').on('click', function (e) {
+                e.preventDefault();
+                $('html,body').animate({
+                    scrollTop: 0
+                }, 500);
+            });
+        }
+    </script>
+    @RenderSection("footerJS", required: false)
+</body>
+</html>
